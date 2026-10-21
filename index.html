@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080d1b">
+  <title>ORBLYQ — Connect Possibilities</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #080d1b;
+      color: #f5f7ff;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #202941;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #69a8ff;
+    }
+
+    .tagline {
+      font-size: 11px;
+      color: #9ba8c4;
+      margin-top: 5px;
+    }
+
+    .badge {
+      border: 1px solid #34568b;
+      border-radius: 20px;
+      padding: 8px 12px;
+      color: #91bdff;
+      font-size: 11px;
+    }
+
+    main {
+      max-width: 850px;
+      margin: auto;
+      padding: 28px 20px 100px;
+    }
+
+    .hero {
+      padding: 30px 0;
+    }
+
+    .eyebrow {
+      color: #73aaff;
+      font-size: 12px;
+      letter-spacing: 2px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(35px, 8vw, 58px);
+      line-height: 1.12;
+      margin-bottom: 18px;
+    }
+
+    h1 span {
+      color: #69a8ff;
+    }
+
+    .intro {
+      color: #a8b3ca;
+      line-height: 1.8;
+      max-width: 560px;
+      font-size: 15px;
+    }
+
+    .section-title {
+      margin: 30px 0 15px;
+      font-size: 19px;
+    }
+
+    .choices {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      background: #10192b;
+      border: 1px solid #263550;
+      border-radius: 16px;
+      padding: 22px;
+    }
+
+    .icon {
+      font-size: 28px;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 17px;
+    }
+
+    .card p {
+      color: #a8b3ca;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .button {
+      width: 100%;
+      margin-top: 18px;
+      padding: 12px;
+      border: none;
+      border-radius: 9px;
+      background: #3478f6;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .button.secondary {
+      background: #1b2942;
+      border: 1px solid #344766;
+    }
+
+    .feed {
+      margin-top: 30px;
+      padding: 22px;
+      border-radius: 16px;
+      background: #10192b;
+      border: 1px solid #263550;
+    }
+
+    .feed p {
+      color: #a8b3ca;
+      font-size: 14px;
+      line-height: 1.8;
+      margin-top: 10px;
+    }
+
+    nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-around;
+      background: #0d1525;
+      border-top: 1px solid #263550;
+      padding: 13px 5px;
+    }
+
+    nav a {
+      color: #a8b3ca;
+      text-decoration: none;
+      font-size: 11px;
+      text-align: center;
+    }
+
+    nav a span {
+      display: block;
+      font-size: 19px;
+      margin-bottom: 5px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 10px;
+      color: #7887a4;
+      font-size: 11px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div>
+      <div class="logo">ORBLYQ</div>
+      <div class="tagline">CONNECT POSSIBILITIES</div>
+    </div>
+    <div class="badge">EARTH NETWORK</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow">IDEAS · PEOPLE · OPPORTUNITIES</div>
+
+      <h1>
+        Every connection<br>
+        creates a <span>possibility.</span>
+      </h1>
+
+      <p class="intro">
+        ORBLYQ brings people, businesses, and opportunities
+        together. Share your goals, discover possibilities,
+        and build meaningful connections.
+      </p>
+    </section>
+
+    <h2 class="section-title">What brings you here?</h2>
+
+    <section class="choices">
+      <article class="card">
+        <div class="icon">🏢</div>
+        <h3>I'm a Business Owner</h3>
+        <p>
+          Find skilled people, discover opportunities,
+          and explore ways to grow your business.
+        </p>
+        <button class="button" onclick="chooseRole('Business Owner')">
+          Explore for Business
+        </button>
+      </article>
+
+      <article class="card">
+        <div class="icon">🌍</div>
+        <h3>I'm Looking for Opportunities</h3>
+        <p>
+          Share your skills, explore opportunities,
+          and connect with businesses that need you.
+        </p>
+        <button class="button secondary" onclick="chooseRole('Opportunity Seeker')">
+          Discover Opportunities
+        </button>
+      </article>
+    </section>
+
+    <section class="feed">
+      <h2>🌐 The ORBLYQ Network</h2>
+      <p id="status">
+        A place where ideas meet people and possibilities become action.
+      </p>
+    </section>
+
+    <footer>
+      ORBLYQ from BlorQ<br>
+      LEARN · BUILD · GROW
+    </footer>
+  </main>
+
+  <nav>
+    <a href="#home"><span>⌂</span>Home</a>
+    <a href="#discover" onclick="showSection('Discover')"><span>⌕</span>Discover</a>
+    <a href="#connect" onclick="showSection('Connect')"><span>◎</span>Connect</a>
+    <a href="#chat" onclick="showSection('Chat')"><span>▤</span>Chat</a>
+    <a href="#profile" onclick="showSection('Profile')"><span>♙</span>Profile</a>
+  </nav>
+
+  <script>
+    function chooseRole(role) {
+      document.getElementById('status').textContent =
+        'You selected: ' + role +
+        '. Account creation and opportunity matching will be added next.';
+    }
+
+    function showSection(section) {
+      document.getElementById('status').textContent =
+        section + ' will become available as we build the application.';
+    }
+  </script>
+
+</body>
+      </html>
