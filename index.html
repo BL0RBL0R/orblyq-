@@ -1,275 +1,769 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#080d1b">
-  <title>ORBLYQ — Connect Possibilities</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ORBLYQ — Connect Possibilities</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+:root {
+  --bg: #f3f6fc;
+  --card: #ffffff;
+  --text: #17233d;
+  --muted: #77839b;
+  --border: #e1e7f1;
+  --blue: #3867ff;
+  --soft: #eaf0ff;
+}
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #080d1b;
-      color: #f5f7ff;
-      min-height: 100vh;
-    }
+body.dark {
+  --bg: #0a1020;
+  --card: #121c31;
+  --text: #f0f4ff;
+  --muted: #9baac4;
+  --border: #27344b;
+  --blue: #6687ff;
+  --soft: #1d2b4c;
+}
 
-    header {
-      padding: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #202941;
-    }
+* {
+  box-sizing: border-box;
+}
 
-    .logo {
-      font-size: 25px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      color: #69a8ff;
-    }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+  transition: background .2s, color .2s;
+}
 
-    .tagline {
-      font-size: 11px;
-      color: #9ba8c4;
-      margin-top: 5px;
-    }
+button, input, textarea {
+  font: inherit;
+}
 
-    .badge {
-      border: 1px solid #34568b;
-      border-radius: 20px;
-      padding: 8px 12px;
-      color: #91bdff;
-      font-size: 11px;
-    }
+button {
+  cursor: pointer;
+}
 
-    main {
-      max-width: 850px;
-      margin: auto;
-      padding: 28px 20px 100px;
-    }
+.topbar {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5%;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
 
-    .hero {
-      padding: 30px 0;
-    }
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
 
-    .eyebrow {
-      color: #73aaff;
-      font-size: 12px;
-      letter-spacing: 2px;
-      margin-bottom: 18px;
-    }
+.logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #396bff, #7d54ff);
+  color: white;
+  font-size: 25px;
+}
 
-    h1 {
-      font-size: clamp(35px, 8vw, 58px);
-      line-height: 1.12;
-      margin-bottom: 18px;
-    }
+.brand small {
+  display: block;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  margin-top: 3px;
+}
 
-    h1 span {
-      color: #69a8ff;
-    }
+.top-actions {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+}
 
-    .intro {
-      color: #a8b3ca;
-      line-height: 1.8;
-      max-width: 560px;
-      font-size: 15px;
-    }
+.icon-btn {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
 
-    .section-title {
-      margin: 30px 0 15px;
-      font-size: 19px;
-    }
+.plus-btn, .primary {
+  background: var(--blue);
+  color: white;
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-weight: 700;
+}
 
-    .choices {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
-    }
+.layout {
+  max-width: 1250px;
+  margin: 28px auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 225px minmax(0, 1fr) 245px;
+  gap: 22px;
+}
 
-    .card {
-      background: #10192b;
-      border: 1px solid #263550;
-      border-radius: 16px;
-      padding: 22px;
-    }
+.sidebar, .rightbar {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
 
-    .icon {
-      font-size: 28px;
-      margin-bottom: 15px;
-    }
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
 
-    .card h3 {
-      margin-bottom: 10px;
-      font-size: 17px;
-    }
+.nav-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  color: var(--muted);
+  border: 0;
+  padding: 14px 12px;
+  border-radius: 12px;
+  margin: 3px 0;
+  font-weight: 700;
+}
 
-    .card p {
-      color: #a8b3ca;
-      font-size: 13px;
-      line-height: 1.7;
-    }
+.nav-item:hover, .nav-item.active {
+  color: var(--blue);
+  background: var(--soft);
+}
 
-    .button {
-      width: 100%;
-      margin-top: 18px;
-      padding: 12px;
-      border: none;
-      border-radius: 9px;
-      background: #3478f6;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
+h1 {
+  font-size: 30px;
+  margin: 0 0 10px;
+}
 
-    .button.secondary {
-      background: #1b2942;
-      border: 1px solid #344766;
-    }
+h2 {
+  font-size: 20px;
+  margin-top: 0;
+}
 
-    .feed {
-      margin-top: 30px;
-      padding: 22px;
-      border-radius: 16px;
-      background: #10192b;
-      border: 1px solid #263550;
-    }
+h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
 
-    .feed p {
-      color: #a8b3ca;
-      font-size: 14px;
-      line-height: 1.8;
-      margin-top: 10px;
-    }
+p {
+  line-height: 1.6;
+}
 
-    nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      display: flex;
-      justify-content: space-around;
-      background: #0d1525;
-      border-top: 1px solid #263550;
-      padding: 13px 5px;
-    }
+.muted {
+  color: var(--muted);
+}
 
-    nav a {
-      color: #a8b3ca;
-      text-decoration: none;
-      font-size: 11px;
-      text-align: center;
-    }
+.hero {
+  background: linear-gradient(125deg, #142958, #3867ff 70%, #7657ed);
+  color: white;
+  padding: 30px;
+  border-radius: 22px;
+  margin-bottom: 20px;
+}
 
-    nav a span {
-      display: block;
-      font-size: 19px;
-      margin-bottom: 5px;
-    }
+.hero p {
+  color: #e0e8ff;
+}
 
-    footer {
-      text-align: center;
-      padding: 25px 10px;
-      color: #7887a4;
-      font-size: 11px;
-    }
-  </style>
+.hero .primary {
+  background: white;
+  color: #244dcc;
+}
+
+.search {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 13px;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  outline: none;
+}
+
+textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.search input {
+  min-width: 0;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pill {
+  display: inline-block;
+  background: var(--soft);
+  color: var(--blue);
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  margin: 3px;
+}
+
+.post {
+  margin-bottom: 16px;
+}
+
+.avatar {
+  width: 43px;
+  height: 43px;
+  border-radius: 14px;
+  background: var(--soft);
+  display: grid;
+  place-items: center;
+  color: var(--blue);
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.primary:hover, .plus-btn:hover {
+  opacity: .88;
+}
+
+.secondary {
+  background: var(--soft);
+  color: var(--blue);
+  border: 0;
+  border-radius: 11px;
+  padding: 11px 14px;
+  font-weight: 700;
+}
+
+.full {
+  width: 100%;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.match-result {
+  padding: 15px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  margin-top: 12px;
+}
+
+.status {
+  margin-top: 12px;
+  color: var(--blue);
+  font-weight: 700;
+}
+
+.menu-panel {
+  display: none;
+  position: absolute;
+  right: 5%;
+  top: 64px;
+  width: 230px;
+  padding: 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 12px 35px #0002;
+}
+
+.menu-panel.show {
+  display: block;
+}
+
+.menu-panel button {
+  width: 100%;
+  padding: 12px;
+  text-align: left;
+  background: transparent;
+  color: var(--text);
+  border: 0;
+  border-radius: 10px;
+}
+
+.menu-panel button:hover {
+  background: var(--soft);
+}
+
+.bottom-nav {
+  display: none;
+}
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  padding: 30px;
+}
+
+@media (max-width: 950px) {
+  .layout {
+    grid-template-columns: 190px minmax(0, 1fr);
+  }
+
+  .rightbar {
+    display: none;
+  }
+}
+
+@media (max-width: 650px) {
+  .topbar {
+    height: 64px;
+    padding: 0 14px;
+  }
+
+  .brand {
+    font-size: 19px;
+  }
+
+  .logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .top-actions {
+    gap: 5px;
+  }
+
+  .plus-btn {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .icon-btn {
+    padding: 9px;
+  }
+
+  .layout {
+    display: block;
+    padding: 0 13px;
+    margin: 18px auto 90px;
+  }
+
+  .sidebar, .rightbar {
+    display: none;
+  }
+
+  h1 {
+    font-size: 25px;
+  }
+
+  .hero {
+    padding: 23px;
+  }
+
+  .card {
+    padding: 17px;
+  }
+
+  .bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    justify-content: space-around;
+    padding: 8px 2px calc(8px + env(safe-area-inset-bottom));
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    z-index: 20;
+  }
+
+  .bottom-nav button {
+    background: transparent;
+    border: 0;
+    color: var(--muted);
+    font-size: 11px;
+    padding: 6px 4px;
+  }
+
+  .bottom-nav button.active {
+    color: var(--blue);
+    font-weight: 800;
+  }
+
+  .bottom-nav span {
+    display: block;
+    font-size: 19px;
+    margin-bottom: 4px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <header>
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">∞</div>
     <div>
-      <div class="logo">ORBLYQ</div>
-      <div class="tagline">CONNECT POSSIBILITIES</div>
+      ORBLYQ
+      <small>FROM BLORQ</small>
     </div>
-    <div class="badge">EARTH NETWORK</div>
-  </header>
+  </div>
+
+  <div class="top-actions">
+    <button class="icon-btn" onclick="toggleTheme()" aria-label="Switch theme">🌙</button>
+    <button class="plus-btn" onclick="showPage('plus')">✦ Plus</button>
+    <button class="icon-btn" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+  </div>
+
+  <div class="menu-panel" id="menuPanel">
+    <button onclick="showPage('discover');toggleMenu()">🌍 AI Discover</button>
+    <button onclick="showPage('plus');toggleMenu()">✦ ORBLYQ Plus</button>
+    <button onclick="showPage('business');toggleMenu()">🏢 Business Centre</button>
+    <button onclick="showPage('notifications');toggleMenu()">🔔 Notifications</button>
+    <button onclick="showPage('profile');toggleMenu()">👤 My Profile</button>
+  </div>
+</header>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="card">
+      <h3>Your Network</h3>
+      <p class="muted">Ideas become opportunities when the right people connect.</p>
+
+      <button class="nav-item active" data-page="home" onclick="showPage('home')">🏠 &nbsp; Home</button>
+      <button class="nav-item" data-page="discover" onclick="showPage('discover')">🌍 &nbsp; Discover</button>
+      <button class="nav-item" data-page="connect" onclick="showPage('connect')">🤝 &nbsp; Connect</button>
+      <button class="nav-item" data-page="chat" onclick="showPage('chat')">💬 &nbsp; Chat</button>
+      <button class="nav-item" data-page="profile" onclick="showPage('profile')">👤 &nbsp; Profile</button>
+    </div>
+
+    <div class="card">
+      <h3>Unlock more</h3>
+      <p class="muted">Explore additional tools for your goals.</p>
+      <button class="primary full" onclick="showPage('plus')">Explore ORBLYQ Plus</button>
+    </div>
+  </aside>
 
   <main>
-    <section class="hero">
-      <div class="eyebrow">IDEAS · PEOPLE · OPPORTUNITIES</div>
 
-      <h1>
-        Every connection<br>
-        creates a <span>possibility.</span>
-      </h1>
+    <!-- HOME -->
+    <section class="page active" id="home">
+      <div class="hero">
+        <span class="pill" style="background:#ffffff25;color:white">YOUR WORLD. CONNECTED.</span>
+        <h1>Every connection holds a possibility.</h1>
+        <p>Discover people, ideas, businesses, and opportunities that move you forward.</p>
+        <button class="primary" onclick="showPage('discover')">Discover your next opportunity →</button>
+      </div>
 
-      <p class="intro">
-        ORBLYQ brings people, businesses, and opportunities
-        together. Share your goals, discover possibilities,
-        and build meaningful connections.
-      </p>
+      <div class="card">
+        <h2>Explore your world</h2>
+        <p class="muted">Search for people, skills, businesses, or opportunities.</p>
+        <div class="search">
+          <input id="homeSearch" placeholder="What are you looking for?">
+          <button class="primary" onclick="searchOpportunities()">Search</button>
+        </div>
+        <div id="searchStatus" class="status"></div>
+      </div>
+
+      <div class="card post">
+        <div class="row">
+          <div class="user">
+            <div class="avatar">O</div>
+            <div><strong>ORBLYQ Network</strong><br><small class="muted">Welcome to the network</small></div>
+          </div>
+          <span class="pill">Community</span>
+        </div>
+        <h3>Great opportunities can start with one connection.</h3>
+        <p class="muted">Share your goals, explore new ideas, and connect with people who can help you make progress.</p>
+        <button class="secondary" onclick="showPage('discover')">Find connections →</button>
+      </div>
+
+      <div class="card post">
+        <div class="row">
+          <h3>Opportunity spotlight</h3>
+          <span class="pill">Demo</span>
+        </div>
+        <h3>Looking for skilled people?</h3>
+        <p class="muted">Businesses can describe the skills they need and find potential candidates through ORBLYQ.</p>
+        <button class="secondary" onclick="showPage('business')">Explore business tools</button>
+      </div>
     </section>
 
-    <h2 class="section-title">What brings you here?</h2>
+    <!-- DISCOVER -->
+    <section class="page" id="discover">
+      <div class="card">
+        <span class="pill">AI-POWERED DISCOVERY</span>
+        <h1>What would you like to achieve?</h1>
+        <p class="muted">Describe your goal. ORBLYQ can help identify what kind of people or opportunities may be relevant.</p>
 
-    <section class="choices">
-      <article class="card">
-        <div class="icon">🏢</div>
-        <h3>I'm a Business Owner</h3>
-        <p>
-          Find skilled people, discover opportunities,
-          and explore ways to grow your business.
-        </p>
-        <button class="button" onclick="chooseRole('Business Owner')">
-          Explore for Business
-        </button>
-      </article>
+        <label for="userType"><strong>Which best describes you?</strong></label>
+        <select id="userType" style="width:100%;margin:10px 0 18px;padding:13px;border-radius:12px;border:1px solid var(--border);background:var(--bg);color:var(--text)">
+          <option value="job seeker">I'm looking for a job or opportunity</option>
+          <option value="business owner">I'm a business owner looking for workers</option>
+          <option value="student">I'm a student looking to grow</option>
+          <option value="professional">I'm a professional looking to connect</option>
+          <option value="idea creator">I have an idea or project</option>
+        </select>
 
-      <article class="card">
-        <div class="icon">🌍</div>
-        <h3>I'm Looking for Opportunities</h3>
-        <p>
-          Share your skills, explore opportunities,
-          and connect with businesses that need you.
-        </p>
-        <button class="button secondary" onclick="chooseRole('Opportunity Seeker')">
-          Discover Opportunities
-        </button>
-      </article>
+        <label for="goal"><strong>Describe what you need</strong></label>
+        <textarea id="goal" placeholder="Example: I am a school principal looking for an experienced mathematics teacher."></textarea>
+
+        <button class="primary full" style="margin-top:12px" onclick="findMatches()">✦ Find potential matches</button>
+        <div id="matchResults" class="status"></div>
+        <p class="muted" style="font-size:12px">Prototype demonstration: real AI matching is not connected yet.</p>
+      </div>
+
+      <div class="card">
+        <h2>How matching will work</h2>
+        <p>① Describe your goal.</p>
+        <p>② ORBLYQ identifies relevant skills and requirements.</p>
+        <p>③ Potential matches are presented to both sides.</p>
+        <p>④ Users choose whether to connect.</p>
+      </div>
     </section>
 
-    <section class="feed">
-      <h2>🌐 The ORBLYQ Network</h2>
-      <p id="status">
-        A place where ideas meet people and possibilities become action.
-      </p>
+    <!-- CONNECT -->
+    <section class="page" id="connect">
+      <div class="card">
+        <h1>Your Connections</h1>
+        <p class="muted">Manage people you want to connect with.</p>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <div class="user">
+            <div class="avatar">MT</div>
+            <div><strong>Mathematics Teacher</strong><br><small class="muted">Example connection request</small></div>
+          </div>
+          <span class="pill">Demo</span>
+        </div>
+        <p class="muted">Experienced teacher interested in new school opportunities.</p>
+        <button class="primary" onclick="connectionAction(this,'accepted')">Accept</button>
+        <button class="secondary" onclick="connectionAction(this,'declined')">Decline</button>
+        <div class="status"></div>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <div class="user">
+            <div class="avatar">BC</div>
+            <div><strong>Business Consultant</strong><br><small class="muted">Suggested connection</small></div>
+          </div>
+          <span class="pill">Demo</span>
+        </div>
+        <p class="muted">Interested in helping businesses grow.</p>
+        <button class="primary" onclick="connectionAction(this,'request sent')">Connect</button>
+        <div class="status"></div>
+      </div>
     </section>
 
-    <footer>
-      ORBLYQ from BlorQ<br>
-      LEARN · BUILD · GROW
-    </footer>
+    <!-- CHAT -->
+    <section class="page" id="chat">
+      <div class="card">
+        <h1>Messages</h1>
+        <p class="muted">Your place for conversations with your connections.</p>
+      </div>
+
+      <div class="card">
+        <div class="user">
+          <div class="avatar">OR</div>
+          <div><strong>ORBLYQ Demo Conversation</strong><br><small class="muted">Prototype preview</small></div>
+        </div>
+        <hr style="border:0;border-top:1px solid var(--border);margin:20px 0">
+        <p class="muted">Your conversations will appear here once messaging is implemented.</p>
+        <div id="chatMessages"></div>
+        <input id="chatInput" placeholder="Write a demo message..." style="margin:12px 0">
+        <button class="primary" onclick="sendDemoMessage()">Send demo message</button>
+        <p class="muted" style="font-size:12px">Demo only. Messages are not saved or sent to other users.</p>
+      </div>
+    </section>
+
+    <!-- PROFILE -->
+    <section class="page" id="profile">
+      <div class="card">
+        <h1>My Profile</h1>
+        <p class="muted">Introduce yourself to the ORBLYQ network.</p>
+        <div class="avatar" style="width:65px;height:65px;font-size:25px">U</div>
+
+        <label for="profileName"><strong>Your name</strong></label>
+        <input id="profileName" placeholder="Enter your name" style="margin:8px 0 16px">
+
+        <label for="profileRole"><strong>Your role or profession</strong></label>
+        <input id="profileRole" placeholder="e.g. Teacher, Business Owner, Developer" style="margin:8px 0 16px">
+
+        <label for="profileBio"><strong>About you</strong></label>
+        <textarea id="profileBio" placeholder="Describe your skills, goals, or business."></textarea>
+
+        <button class="primary full" style="margin-top:12px" onclick="saveDemoProfile()">Save demo profile</button>
+        <div id="profileStatus" class="status"></div>
+        <p class="muted" style="font-size:12px">This prototype does not yet save profile details to a database.</p>
+      </div>
+    </section>
+
+    <!-- PLUS -->
+    <section class="page" id="plus">
+      <div class="hero">
+        <span class="pill" style="background:#ffffff25;color:white">PREMIUM EXPERIENCE</span>
+        <h1>Meet ORBLYQ Plus.</h1>
+        <p>More tools to help you discover opportunities and grow your network.</p>
+      </div>
+
+      <div class="card">
+        <h2>ORBLYQ Free</h2>
+        <p>Explore the network and access standard features as they become available.</p>
+        <span class="pill">Free plan</span>
+      </div>
+
+      <div class="card">
+        <span class="pill">PREMIUM</span>
+        <h2>ORBLYQ Plus</h2>
+        <p>Potential premium benefits may include:</p>
+        <p>✓ Enhanced discovery tools</p>
+        <p>✓ Advanced matching options</p>
+        <p>✓ Additional profile and networking tools</p>
+        <p>✓ Expanded business features</p>
+        <button class="primary full" onclick="alert('Subscriptions and payments have not been connected yet.')">Explore Plus subscription</button>
+        <p class="muted" style="font-size:12px">Pricing and benefits will be finalized before real subscriptions launch.</p>
+      </div>
+    </section>
+
+    <!-- BUSINESS -->
+    <section class="page" id="business">
+      <div class="card">
+        <h1>Business Centre</h1>
+        <p class="muted">Tools for businesses looking to grow, recruit, and discover opportunities.</p>
+      </div>
+
+      <div class="card">
+        <h3>Find the right people</h3>
+        <p class="muted">Describe a role and the skills you need.</p>
+        <button class="primary" onclick="showPage('discover')">Explore matching</button>
+      </div>
+
+      <div class="card">
+        <h3>Business growth tools</h3>
+        <p class="muted">Future tools may include business insights, qualified leads, recruitment campaigns, and enhanced verification.</p>
+        <button class="secondary" onclick="showPage('plus')">Explore Plus</button>
+      </div>
+    </section>
+
+    <!-- NOTIFICATIONS -->
+    <section class="page" id="notifications">
+      <div class="card">
+        <h1>Notifications</h1>
+        <p class="muted">Updates about connections, opportunities, and matches will appear here.</p>
+        <div class="match-result">
+          <strong>Welcome to ORBLYQ!</strong>
+          <p class="muted">Your first prototype is ready to explore.</p>
+        </div>
+        <p class="muted" style="font-size:12px">Real-time notifications are not connected yet.</p>
+      </div>
+    </section>
+
   </main>
 
-  <nav>
-    <a href="#home"><span>⌂</span>Home</a>
-    <a href="#discover" onclick="showSection('Discover')"><span>⌕</span>Discover</a>
-    <a href="#connect" onclick="showSection('Connect')"><span>◎</span>Connect</a>
-    <a href="#chat" onclick="showSection('Chat')"><span>▤</span>Chat</a>
-    <a href="#profile" onclick="showSection('Profile')"><span>♙</span>Profile</a>
-  </nav>
+  <aside class="rightbar">
+    <div class="card">
+      <h3>🌍 The ORBLYQ idea</h3>
+      <p class="muted">Connect people, skills, businesses, and opportunities in unexpected ways.</p>
+    </div>
 
-  <script>
-    function chooseRole(role) {
-      document.getElementById('status').textContent =
-        'You selected: ' + role +
-        '. Account creation and opportunity matching will be added next.';
-    }
+    <div class="card">
+      <h3>Quick access</h3>
+      <button class="nav-item" onclick="showPage('discover')">✦ Find a match</button>
+      <button class="nav-item" onclick="showPage('connect')">🤝 My connections</button>
+      <button class="nav-item" onclick="showPage('plus')">💎 ORBLYQ Plus</button>
+    </div>
 
-    function showSection(section) {
-      document.getElementById('status').textContent =
-        section + ' will become available as we build the application.';
-    }
-  </script>
+    <div class="card">
+      <h3>Built for possibility</h3>
+      <p class="muted">ORBLYQ · From BlorQ</p>
+    </div>
+  </aside>
 
-</body>
-      </html>
+</div>
+
+<nav class="bottom-nav">
+  <button class="active" data-page="home" onclick="showPage('home')"><span>⌂</span>Home</button>
+  <button data-page="discover" onclick="showPage('discover')"><span>◎</span>Discover</button>
+  <button data-page="connect" onclick="showPage('connect')"><span>♧</span>Connect</button>
+  <button data-page="chat" onclick="showPage('chat')"><span>▤</span>Chat</button>
+  <button data-page="profile" onclick="showPage('profile')"><span>♙</span>Profile</button>
+</nav>
+
+<footer>
+  ORBLYQ · From BlorQ · Connect Possibilities
+</footer>
+
+<script>
+function showPage(pageName) {
+  document.querySelectorAll('.page').forEach(page => {
+    page.classList.toggle('active', page.id === pageName);
+  });
+
+  document.querySelectorAll('[data-page]').forEach(button => {
+    button.classList.toggle('active', button.dataset.page === pageName);
+  });
+
+  document.getElementById('menuPanel').classList.remove('show');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function toggleTheme() {
+  document.body.classList.toggle('dark');
+
+  const isDark = document.body.classList.contains('dark');
+  localStorage.setItem('orblyqTheme', isDark ? 'dark' : 'light');
+
+  document.querySelector('[aria-label="Switch theme"]').textContent =
+    isDark ? '☀️' : '🌙';
+}
+
+function toggleMenu() {
+  document.getElementById('menuPanel').classList.toggle('show');
+}
+
+function searchOpportunities() {
+  const query = document.getElementById('homeSearch').value.trim();
+
+  if (!query) {
+    document.getElementById('searchStatus').textContent =
+      'Please enter something to search for.';
+    return;
+  }
+
+  document.getElementById
