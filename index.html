@@ -779,6 +779,30 @@ function searchOpportunities() {
     document.querySelector('[aria-label="Switch theme"]').textContent = '☀️';
   }
 })();
+  function findMatches() {
+const goal = document.getElementById('goal').value.trim();
+const type = document.getElementById('userType').value;
+const results = document.getElementById('matchResults');
+
+if (!goal) {
+results.textContent = 'Please describe your goal first.';
+return;
+}
+
+results.innerHTML = '';
+
+const heading = document.createElement('h3');
+heading.textContent = 'Your discovery request';
+results.appendChild(heading);
+
+const summary = document.createElement('p');
+summary.textContent = 'You selected: ' + type + '. Your goal: ' + goal;
+results.appendChild(summary);
+
+const note = document.createElement('p');
+note.textContent = 'Your request has been displayed. Real AI matching will be connected in a later step.';
+results.appendChild(note);
+  }
 </script>
 
 </body>
