@@ -828,6 +828,17 @@ const orblyqDB = supabase.createClient(
 );
 
 console.log('ORBLYQ Supabase client initialized!');
+orblyqDB.auth.getSession()
+  .then(({ data, error }) => {
+    if (error) {
+      console.error('ORBLYQ Auth test failed:', error.message);
+    } else {
+      console.log('ORBLYQ Supabase Auth responded successfully!');
+    }
+  })
+  .catch(error => {
+    console.error('ORBLYQ connection test failed:', error.message);
+  });
 </script>  
 </body>
 </html>
