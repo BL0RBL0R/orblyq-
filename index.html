@@ -767,3 +767,19 @@ function searchOpportunities() {
   }
 
   document.getElementById
+        'Demo profile preview: ' + name + ' — ' + role +
+      '. Database saving will be added later.';
+}
+
+(function initializeTheme() {
+  const savedTheme = localStorage.getItem('orblyqTheme');
+
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark');
+    document.querySelector('[aria-label="Switch theme"]').textContent = '☀️';
+  }
+})();
+</script>
+
+</body>
+</html>
