@@ -1084,5 +1084,89 @@ async function loadOrblyqProfile() {
 
 document.addEventListener("DOMContentLoaded", loadOrblyqProfile);
 </script>
+<script>
+(function () {
+  const form = document.getElementById("orblyq-auth-form");
+  const title = document.getElementById("orblyq-auth-title");
+  const submit = document.getElementById("orblyq-auth-submit");
+  const nameInput = document.getElementById("orblyq-auth-name");
+  const passwordInput = document.getElementById("orblyq-auth-password");
+  const switchButton = document.getElementById("orblyq-auth-switch");
+  const switchText = document.getElementById("orblyq-auth-switch-text");
+  const message = document.getElementById("orblyq-auth-message");
+
+  if (!form || !switchButton || !submit) {
+    console.error("ORBLYQ login: required form elements were not found.");
+    return;
+  }
+
+  let loginMode = false;
+
+  switchButton.addEventListener("click", function () {
+    loginMode = !loginMode;
+
+    title.textContent = loginMode ? "Welcome Back" : "Join ORBLYQ";
+    submit.textContent = loginMode ? "Log In" : "Create Account";
+    nameInput.required = !loginMode;
+    nameInput.style.display = loginMode ? "none" : "";
+    passwordInput.autocomplete = loginMode ? "current-password" : "new-password";
+    switchText.childNodes[0].textContent =
+      loginMode ? "Need an account? " : "Already have an account? ";
+    switchButton.textContent = loginMode ? "Create Account" : "Log In";
+    message.textContent = "";
+  });
+
+  form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const email = document.getElementById("orblyq-auth-email").value.trim();
+    const password = passwordInput.value;
+    const fullName = nameInput.value.trim();
+
+    submit.disabled = true;
+    message.textContent = loginMode ? "Signing in..." : "Creating account...";
+
+    try {
+      if (loginMode) {
+        const { error } = await orblyqDB.auth.signInWithPassword({
+          email: email,
+          password: password
+        });
+
+        if (error) throw error;
+
+        message.textContent = "Signed in successfully!";
+        await loadOrblyqProfile();
+
+        setTimeout(function () {
+          document.getElementById("orblyq-auth-overlay").style.display = "none";
+        }, 800);
+      } else {
+        const { data, error } = await orblyqDB.auth.signUp({
+          email: email,
+          password: password,
+          options: {
+            data: { full_name: fullName }
+          }
+        });
+
+        if (error) throw error;
+
+        if (data.session) {
+          message.textContent = "Account created and signed in!";
+          await loadOrblyqProfile();
+        } else {
+          message.textContent =
+            "Account created. Check your email to confirm it, then log in.";
+        }
+      }
+    } catch (error) {
+      message.textContent = error.message || "Something went wrong.";
+    } finally {
+      submit.disabled = false;
+    }
+  });
+})();
+             </script>
 </body>
 </html>
