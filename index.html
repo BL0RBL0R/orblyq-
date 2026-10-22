@@ -1037,5 +1037,47 @@ orblyqDB.auth.getSession()
   });
 })();
     </script>
+<script>
+async function loadOrblyqProfile() {
+  try {
+    const { data: userData, error: userError } =
+      await orblyqDB.auth.getUser();
+
+    if (userError) throw userError;
+
+    const user = userData.user;
+
+    if (!user) {
+      console.log("ORBLYQ: Please sign in to view your profile.");
+      return;
+    }
+
+    const { data: profile, error: profileError } =
+      await orblyqDB
+        .from("profiles")
+        .select("*")
+        .eq("id", user.id)
+        .maybeSingle();
+
+    if (profileError) throw profileError;
+
+    const nameElement = document.getElementById("profile-name");
+
+    if (nameElement) {
+      nameElement.textContent =
+        profile?.full_name ||
+        user.user_metadata?.full_name ||
+        user.email ||
+        "ORBLYQ User";
+    }
+
+    console.log("ORBLYQ: Profile loading completed.", profile);
+  } catch (error) {
+    console.error("ORBLYQ profile loading failed:", error.message);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", loadOrblyqProfile);
+</script>
 </body>
 </html>
